@@ -1,0 +1,68 @@
+public class ArregloEnteros {
+	    //atributos
+		private int []arreglo;
+		private int indice;
+		
+		//constructor
+		
+		public ArregloEnteros(int max) {
+			arreglo = new int [max];
+			indice = -1;
+		}
+
+		//metodos
+		public boolean ValidaEspacio(){
+			if(indice<arreglo.length-1)
+				return true;
+			else
+				return false;
+		}
+		
+		public void Insertar (int dato){
+			     indice +=1;
+			     arreglo [indice]=dato;
+		}
+		
+		public void Listar(){
+			int i;
+			System.out.println("\tTelefonos: ");
+			for(i=0; i<=indice; i++)
+				System.out.println("\t\t"+arreglo[i]);
+		}
+		
+		public void ListarOrden(){ 
+			int i;
+			for (i=0;i<=indice;i++){
+				System.out.println((i+1)+")"+arreglo[i]);
+			}
+		}
+		
+		public void Actualizar(int dato){
+			int pos = BuscarDato(dato), nuevo;
+			if(pos!=-1){
+				nuevo = Teclado.entero("Ingrese el nuevo dato: ");
+				arreglo[pos]=nuevo;
+			}else
+				System.out.println("[!]NO EXISTE EL DATO "+dato);
+		}
+		
+		public int BuscarDato(int dato){ 
+			int i;
+			for(i=0;i<=indice;i++){
+				if(dato==arreglo[i])
+					return i;
+			}
+			return -1;
+		}
+		
+		public void Borrar(int dato){
+			int pos = BuscarDato(dato);
+			if(pos!=-1){
+				arreglo[pos]=arreglo[indice];
+				indice--;
+			}else{
+				System.out.println("[!]NO EXISTE EL DATO "+dato);
+			}
+		}
+			
+}
