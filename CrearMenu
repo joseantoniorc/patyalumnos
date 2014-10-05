@@ -1,0 +1,84 @@
+class CrearMenu {
+	
+	public static void main(String []args){
+        int opcion, dato, max, pos, maxtels, maxcalifs;
+        Alumno alu;
+		ArregloAlumnos miarreglo;
+		max=Teclado.entero("Cantidad de alumnos a ingresar: ");
+		miarreglo=new ArregloAlumnos(max);
+		maxtels=Teclado.entero("Maximo numero de telefonos: ");
+		maxcalifs=Teclado.entero("Maximo numero de calificaciones: ");
+		
+		do{
+			opcion=DesplegarMenu("\n1)Insertar\n2)Listar\n3)Borrar\n4)Buscar\n5)Actualizar\n6)Ordenar\n7)Salir: ",7);
+		switch(opcion){
+		
+		case 1: //Insertar
+			if(miarreglo.ValidaEspacio()){
+		    	   alu=new Alumno(maxcalifs,maxtels);
+				   miarreglo.Insertar(alu);
+				   System.out.println("Datos guardados...");
+		    	}
+		    	else
+					System.out.println("Error: no hay espacio para otro alumno...");
+			break;
+			    
+		case 2: //Listar
+			miarreglo.Listar();
+			break;
+			
+		case 3: //Borrar
+			dato=Teclado.entero("Cuenta del alumno a borrar: ");
+			pos=miarreglo.BuscarDato(dato);
+			if(pos!=-1){
+				miarreglo.Borrar(pos);
+			    System.out.println("Alumno borrado...");
+			}
+			else
+				System.out.println("Error, no existe ese alumno: "+dato);
+			break;
+			
+		case 4: //Buscar
+			dato=Teclado.entero("Cuenta a buscar: ");
+			pos=miarreglo.BuscarDato(dato);
+			if(pos!=-1)
+			   miarreglo.Listar(pos);
+			else
+				System.out.println("Error, no existe ese alumno: "+dato);
+			break;
+		
+		case 5: //Actualizar
+			dato=Teclado.entero("Dame el no. de cuenta: ");
+			pos=miarreglo.BuscarDato(dato);
+			if(pos!=-1)
+				miarreglo.Actualizar(pos);
+			else
+				System.out.println("Error, no existe ese alumno: "+ dato);
+		break;
+		
+		case 6: //Ordenar
+			miarreglo.Ordenar();
+			System.out.println("Datos ordenados...");
+		break;
+
+		case 7: //Salir
+			System.exit(0);
+		break;
+			
+		}}while(opcion!=7);
+	}
+
+
+    public static int DesplegarMenu(String texto, int maxopc)
+    {
+    	int opcion;
+    	do
+    	{
+    		opcion=Teclado.entero(texto);
+    		if(opcion<1 || opcion>maxopc)
+    			System.out.println("Error, opcion invalida...");
+    	}
+    	while (opcion<1 || opcion > maxopc);
+    		return opcion;
+    }
+}
