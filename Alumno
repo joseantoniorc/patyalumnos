@@ -1,0 +1,192 @@
+class Alumno {
+	    //Atributos
+	    private int cuenta;
+		private String nomb;
+		private ArregloEnteros tels;
+		private ArregloReal califs;
+		private double prom;
+		private Direccion dir;
+		
+		
+		//Constructores
+		public Alumno(int maxcalf, int maxtel){
+			tels = new ArregloEnteros(maxtel);
+			califs = new ArregloReal(maxcalf);
+			dir = new Direccion();
+			Capturar();
+		}
+		
+		
+		//Metodos y Funciones
+		public void Capturar(){
+		    CapturaCuenta();
+			CapturaNombre();
+			CapturaDir();
+			CapturaTels();
+			CapturaCalifs();
+		}
+		
+		
+		public void CapturaCuenta(){
+			cuenta = Teclado.entero("\tCuenta: ");
+		}
+		
+		
+		public void CapturaNombre(){
+			nomb = Teclado.cadena("\tNombre: ");
+		}
+		
+			
+		private void CapturaTels(){
+			int opcion=0, dato, cont=0;
+			do
+			{
+				if(tels.ValidaEspacio())
+				{
+					cont++;
+					dato=Teclado.entero("\tTelefono("+cont+"): ");
+					tels.Insertar(dato);
+				}
+				else{
+					System.out.println("Error: No hay espacio");
+					break;
+				}
+				opcion=Teclado.entero("\t1)otro telefono 2)salir: ");
+			}while (opcion==1);
+		}
+		
+		
+		private void CapturaCalifs(){
+			double dato;
+			int opcion=0, cont=0;
+			do
+			{
+				if(califs.ValidaEspacio())
+				{
+					cont++;
+					dato=Teclado.Double("\tCalificacion("+cont+"): ");
+					califs.Insertar(dato);
+				}
+				else{
+					System.out.println("Error: No hay espacio");
+					break;
+				}
+				opcion=Teclado.entero("\t1)otra calificacion 2)salir: ");
+			} while(opcion==1);
+		}
+		
+		
+		private void CapturaDir(){
+			dir.Capturar();
+		}
+		
+		
+		public void Listar(){
+			System.out.println("\tCuenta: "+cuenta+"\n\tNombre: "+nomb);
+			dir.Listar();
+			tels.Listar();
+			califs.Listar();
+			CalculaPromedio();
+			System.out.println("\tPromedio: "+prom);
+		}
+		
+		
+		public double CalculaPromedio(){
+			int pos,n;
+			n=califs.ObtIndice();
+			prom=0;
+			for(pos=0;pos<=n;pos++){
+				prom = prom + califs.ObtValor(pos);
+			}
+			prom= prom/(n+1);
+	        return prom;
+		  }
+		
+		
+		public void Actualizar(){
+			int opc,dato,opcion;
+			do{
+				System.out.println("\t¿Que quieres actualizar?");
+				opc = CrearMenu.DesplegarMenu("\t1)Cuenta\n\t2)Nombre\n\t3)Direccion\n\t4)Telefonos\n\t5)Calificacion\n\t6)Salir: ", 6);
+				switch(opc){
+				
+				    case 1:
+				    	CapturaCuenta();
+				    	System.out.println("INFORMACION ACTUALIZADA...");
+				    	break;
+				
+				    case 2: 
+				    	CapturaNombre(); 
+				    	System.out.println("INFORMACION ACTUALIZADA...");
+				    	break;
+				    	
+				    case 3:
+				    	dir.Actualizar();
+				    	break;
+				    	
+				    case 4:
+				    	do{
+					    	opcion = CrearMenu.DesplegarMenu("\t\t1)Agregar\n\t\t2)Actualizar\n\t\t3)Borrar\n\t\t4)Salir", 4);
+					    	switch (opcion){
+							    	case 1: 
+							    		CapturaTels(); 
+							    		System.out.println("INFORMACION AGREGADA...");
+							    		break;
+							    	case 2: 
+							    		tels.ListarOrden();
+							    		dato = Teclado.entero("Ingresa el telefono que desea cambiar: ");
+							    		tels.Actualizar(dato);
+							    		System.out.println("INFORMACION ACTUALIZADA...");
+							    		break;
+							    	case 3:
+							    		tels.ListarOrden();
+							    		dato = Teclado.entero("Ingresa el numero que deseas borrar: ");
+							    		tels.BuscarDato(dato);
+							    		tels.Borrar(dato);
+							    		System.out.println("INFORMACION BORRADA...");
+							    		break;
+							    	default:
+							    		System.out.println("OPCION INCORRECTA...");
+							    		break;
+						    	}
+				    	}while(opcion!=4);
+				    	
+				    case 5:
+				    	do{
+				    		opcion= CrearMenu.DesplegarMenu("\t\t1)Insertar\n\t\t2)Actualizar\n\t\t3)Borrar\n\t\t4)Salir", 4);
+				    		switch(opcion){
+				    			case 1:
+				    				CapturaCalifs();
+				    				System.out.println("INFORMACION AGREGADA...");
+				    				break;
+				    			case 2: 
+				    				int datoA; double datoB;
+				    				califs.ListarOrden();
+				    				datoA=Teclado.entero("Ingresa el numero de la calificacion a cambiar: ");
+				    				datoB=Teclado.Double("Ingresa la nueva calificacion: ");
+				    				califs.ObtDato(datoA-1, datoB);
+				    				System.out.println("INFORMACION ACTUALIZADA...");
+				    				break;
+				    			case 3:
+				    				califs.ListarOrden();
+						    		dato = Teclado.entero("Numero de la calificacion que deseas borrar: ");
+						    		califs.BorrarDato(dato);
+						    		System.out.println("INFORMACION ACTUALIZADA...");
+						    		break;	
+						    	default:
+						    		System.out.println("OPCION INCORRECTA...");
+						    		break;
+				    		}
+				    	}while(opcion!=4);
+				    	break;
+				}
+			}while(opc<1 || opc>5);
+			
+		}
+		
+		
+		public int GetCuenta(){
+			return cuenta;
+		}
+		
+}
