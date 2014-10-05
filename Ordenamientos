@@ -1,0 +1,46 @@
+
+class Ordenamientos {
+	
+    private void IntercambiaDatos(Alumno[]v,int i, int j){
+	    Alumno aux=v[i];
+	    v[i]=v[j];
+	    v[j]=aux;
+    }
+    
+    public void SortIntercambio(Alumno[]v){
+  	  int i, j;
+  	  for(i=0;i<v.length-1;i++){
+  		  for(j=i+1;j<v.length;j++){
+  			  if(v[i].GetCuenta()>v[j].GetCuenta())
+  				  IntercambiaDatos(v,i,j);
+  		  }
+  	  }
+    }
+    
+    public void SortSeleccion(Alumno[]v, int indice){
+  	  int im, i, j;
+		for(i=0;i<indice;i++){
+  		  im=i;
+  		  for(j=i+1;j<=indice;j++){
+  			  if(v[j].GetCuenta()<v[im].GetCuenta())
+  				  im=j;
+  		  }
+  	if(i!=im)
+  	  IntercambiaDatos(v,i,im);
+  	  }
+    }
+    
+    public void SortInsercion(Alumno[]v){
+  	  int i, j, n=v.length;
+	  Alumno aux;
+  	  for(i=1;i<n;i++){
+  		  j=i;
+  		  aux=v[i];
+  		  while(j>0 && aux.GetCuenta()<v[j-1].GetCuenta()){
+  			  v[j]=v[j-1];
+  			  j--;
+  		  }
+  		 v[j]=aux;
+  	  }
+    }
+}
