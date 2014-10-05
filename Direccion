@@ -1,0 +1,85 @@
+public class Direccion {
+	//atributos
+	private String calle;
+	private int num;
+	private int cp;
+	private String colonia;
+	private String delega;
+	
+	//constructores
+	
+	//metodos
+	public void Capturar(){
+		System.out.println("\tDireccion:");
+		CapturaCalle();
+		CapturaNum();
+		CapturaColonia();
+		CapturaDelegacion();
+		CapturaCP();
+	}
+	
+	public void CapturaCalle(){
+		calle=Teclado.cadena("\t\tCalle: ");
+	}
+	
+	public void CapturaNum(){
+		num=Teclado.entero("\t\tNumero: ");
+	}
+	
+	public void CapturaCP(){
+		cp=Teclado.entero("\t\tCodigo Postal: ");
+	}
+	
+	public void CapturaColonia(){
+		colonia=Teclado.cadena("\t\tColonia: ");
+	}
+	
+	public void CapturaDelegacion(){
+		delega=Teclado.cadena("\t\tDelegacion: ");
+	}
+	
+	public void Listar(){
+		System.out.println("\tDireccion:");
+		System.out.println("\t\t"+calle+"  "+num+"   "+colonia+"   "+delega+"   "+cp);
+	}
+	
+	public void Actualizar(){
+		int opcion;
+		do{
+			opcion=CrearMenu.DesplegarMenu("\t\t1)Calle\n\t\t2)Numero\n\t\t3)Colonia\n\t\t4)Delegacion\n\t\t5)Codigo Postal\n\t\t6)Cancelar: ", 6);
+			switch(opcion){
+			
+			case 1:
+				CapturaCalle();
+				System.out.println("INFORMACION ACTUALIZADA...");
+				break;
+				
+			case 2:
+				CapturaNum();
+				System.out.println("INFORMACION ACTUALIZADA...");
+				break;
+				
+			case 3:
+				CapturaColonia();
+				System.out.println("INFORMACION ACTUALIZADA...");
+				break;
+				
+			case 4:
+				CapturaDelegacion();
+				System.out.println("INFORMACION ACTUALIZADA...");
+				break;
+				
+			case 5:
+				CapturaCP();
+				System.out.println("INFORMACION ACTUALIZADA...");
+				break;
+				
+			case 6:
+				//regresar
+				break;
+				
+			}
+		} while(opcion!=6);
+	}
+
+}
