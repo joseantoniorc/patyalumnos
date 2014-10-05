@@ -1,0 +1,64 @@
+public class ArregloReal {
+	
+	//atributos
+	private double []arreglo;
+	private int indice;
+	
+	//constructor
+	
+	public ArregloReal(int max) {
+		arreglo = new double [max];
+		indice = -1;
+	}
+
+	//metodos
+	public boolean ValidaEspacio(){
+		if(indice<arreglo.length-1)
+			return true;
+		else
+			return false;
+	}
+	
+	public void Insertar (double dato){
+		     indice +=1;
+		     arreglo [indice]=dato;
+	}
+
+	public void Listar(){
+		int i;
+		System.out.println("\tCalificaciones: ");
+		for(i=0; i<=indice; i++)
+			System.out.println("\t\t"+arreglo[i]);
+	}
+	
+	public int ObtIndice(){
+		return indice;
+	}
+	
+	public double ObtValor(int pos){
+		return (arreglo[pos]);
+	}
+	
+	public void ListarOrden(){ 
+		int i;
+		for (i=0;i<=indice;i++){
+			System.out.println((i+1)+")"+arreglo[i]);
+		}
+	}
+	
+	public void ObtDato(int datoA, double datoB){
+		if(datoA<=indice){
+			arreglo[datoA]=datoB;
+			System.out.println("[*]Informacion actualizada");
+		}
+		else{
+			System.out.println("[!]EL DATO NO EXISTE");
+		}
+	}
+	
+	public void BorrarDato(int pos){
+		arreglo[pos-1]=arreglo[indice];
+		indice--;	
+	}
+	
+}
