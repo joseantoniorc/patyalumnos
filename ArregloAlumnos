@@ -1,0 +1,84 @@
+class ArregloAlumnos {
+   
+	//atributos
+		private Alumno []arreglo;
+		private int indice;
+		
+		//constructor
+		public ArregloAlumnos(int max){
+			arreglo=new Alumno[max];
+			indice=-1;
+		}
+		
+		//metodos
+		public void Insertar (Alumno dato){
+			int i=-1, ayu=0;
+			for(i=0; i<=indice; i++){
+				if(dato==arreglo[i]){
+					ayu=1;
+				    break;
+				}
+			}
+			if(ayu!=1){
+			   indice++;
+			   arreglo[indice] = dato;
+			}
+			else
+				System.out.println("Cuenta de alumno ya registrada...");
+		}
+		
+		
+		public boolean ValidaEspacio(){
+			if(indice<arreglo.length-1)
+				return true;
+			else
+				return false;
+		}
+		
+		
+		public void Listar(){
+			int i, cont=0;
+			for(i=0; i<=indice; i++){
+				cont++;
+				System.out.println("\nAlumno("+cont+"):");
+				arreglo[i].Listar();
+			}
+		}
+		
+		
+		public void Listar (int pos){
+			arreglo[pos].Listar();
+		}
+		
+		
+		public int BuscarDato (int dato){
+			int i;
+			for (i=0;i<=indice;i++){
+				if (dato==arreglo[i].GetCuenta()){
+				    System.out.println("La cuenta: "+dato+" esta en la base de datos");
+					return i;
+				}
+			}
+			System.out.println("No existe la cuenta...");
+			return -1;
+		}
+		
+		
+		public void Actualizar (int pos){
+			arreglo[pos].Actualizar();
+		}
+		
+		
+		public Alumno Borrar (int pos){
+			Alumno aux=arreglo[pos];
+			arreglo[pos]=arreglo[indice];
+			indice--;
+			return aux;
+		}
+	
+	public void Ordenar (){
+		Ordenamientos ord = new Ordenamientos();
+		ord.SortInsercion(arreglo);
+	}
+	
+}
